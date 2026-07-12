@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="assets/logo-sekolah.png" onerror="this.style.display='none'">
+  <title>Lacak Status Laporan — Sarpras SMPK Untung Suropati</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar__inner">
+      <a href="index.html" class="navbar__brand">
+        <img src="assets/logo-sekolah.png" alt="Logo Sekolah" onerror="this.style.display='none'">
+        <div class="navbar__brand-text">
+          Laporan Sarpras
+          <span>SMPK Untung Suropati Sidoarjo</span>
+        </div>
+      </a>
+      <nav class="navbar__nav">
+        <a href="index.html" class="navbar__link">Kirim Laporan</a>
+        <a href="lacak.html" class="navbar__link navbar__link--active">Lacak Status</a>
+      </nav>
+      <button class="dark-toggle" id="darkToggleBtn" onclick="toggleDarkMode()" title="Ganti ke mode gelap">🌙</button>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero__badge">Lacak Laporan</div>
+    <h1>Lacak <span>Status</span> Laporanmu</h1>
+    <p>Masukkan kode laporan yang kamu terima saat mengirim (contoh: SP-AB12C) untuk melihat perkembangannya.</p>
+    <div class="hero__divider"></div>
+  </section>
+
+  <div class="container">
+    <section class="section">
+      <div class="card--accent">
+        <div class="section__title">Cek Status Laporan</div>
+
+        <div id="alertBox" class="alert"></div>
+
+        <form id="formLacak" novalidate>
+          <div class="form-group">
+            <label class="form-label" for="kodeInput">Kode Laporan <span>*</span></label>
+            <input class="form-input" type="text" id="kodeInput" placeholder="Contoh: SP-AB12C"
+                   autocomplete="off" style="text-transform:uppercase; letter-spacing:0.08em;" required>
+          </div>
+
+          <button type="submit" class="btn btn--primary btn--full" id="btnLacak">Lacak Status</button>
+        </form>
+
+        <div id="lacakResult" class="track-result"></div>
+      </div>
+    </section>
+  </div>
+
+  <footer class="footer">
+    <p>© 2026 SMPK Untung Suropati Sidoarjo &nbsp;·&nbsp; Website Laporan Sarpras</p>
+  </footer>
+
+  <script src="js/darkmode.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/lacak.js"></script>
+
+</body>
+</html>

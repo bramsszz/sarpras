@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="assets/logo-sekolah.png" onerror="this.style.display='none'">
+  <title>Laporan Sarpras — SMPK Untung Suropati</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .upload-box__label { display:block; }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar__inner">
+      <a href="index.html" class="navbar__brand">
+        <img src="assets/logo-sekolah.png" alt="Logo Sekolah" onerror="this.style.display='none'">
+        <div class="navbar__brand-text">
+          Laporan Sarpras
+          <span>SMPK Untung Suropati Sidoarjo</span>
+        </div>
+      </a>
+      <nav class="navbar__nav">
+        <a href="index.html" class="navbar__link navbar__link--active">Kirim Laporan</a>
+        <a href="lacak.html" class="navbar__link">Lacak Status</a>
+      </nav>
+      <button class="dark-toggle" id="darkToggleBtn" onclick="toggleDarkMode()" title="Ganti ke mode gelap">🌙</button>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero__badge">🛠️ Laporan Sarana &amp; Prasarana</div>
+    <h1>Laporkan <span>Kerusakan</span> Fasilitas Sekolah</h1>
+    <p>Bantu kami menjaga fasilitas sekolah tetap layak digunakan. Sertakan foto kondisi agar laporan cepat ditindaklanjuti!</p>
+    <div class="hero__divider"></div>
+  </section>
+
+  <div class="container">
+    <section class="section">
+      <div class="card--accent">
+        <div class="section__title">Form Laporan</div>
+        <p style="margin-bottom:24px; font-size:0.9rem; color:var(--gray-500);">
+          Isi form di bawah ini dengan lengkap. Semua kolom wajib diisi.
+        </p>
+
+        <div id="alertBox" class="alert"></div>
+        <div id="kodeResult" class="kode-result"></div>
+
+        <form id="formSarpras" novalidate>
+
+          <div class="form-group">
+            <label class="form-label" for="namaLengkap">Nama Lengkap <span>*</span></label>
+            <input class="form-input" type="text" id="namaLengkap" placeholder="Masukkan nama lengkap kamu" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="kelas">Kelas <span>*</span></label>
+            <select class="form-select" id="kelas" required>
+              <option value="">— Pilih kelas —</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="kategori">Jenis Fasilitas <span>*</span></label>
+            <select class="form-select" id="kategori" required>
+              <option value="">— Pilih jenis fasilitas —</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="lokasi">Lokasi / Ruangan <span>*</span></label>
+            <input class="form-input" type="text" id="lokasi" placeholder="Contoh: Toilet, Ruang Lab Komputer" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="tingkat">Tingkat Kerusakan <span>*</span></label>
+            <select class="form-select" id="tingkat" required>
+              <option value="">— Pilih tingkat kerusakan —</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="kritik">Kritik <span>*</span></label>
+            <textarea class="form-textarea" id="kritik" placeholder="Apa masalah yang kamu temukan?" required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="saran">Saran <span>*</span></label>
+            <textarea class="form-textarea" id="saran" placeholder="Apa saran perbaikan yang kamu usulkan?" required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Foto Kondisi <span>*</span></label>
+            <div class="upload-box" id="uploadBox">
+              <input type="file" id="uploadInput" accept="image/jpeg,image/png,image/webp" style="display:none;">
+              <div class="upload-box__label">
+                <div class="upload-box__icon">📷</div>
+                <div class="upload-box__text">Klik atau tarik foto ke sini</div>
+                <div class="upload-box__hint">JPG, PNG, atau WEBP — maks 10MB (otomatis dikompres)</div>
+              </div>
+              <div id="uploadPreview"></div>
+            </div>
+            <div id="uploadProgress" class="upload-progress"></div>
+          </div>
+
+          <button type="submit" class="btn btn--primary btn--full" id="btnKirim">
+            Kirim Laporan
+          </button>
+
+        </form>
+      </div>
+    </section>
+  </div>
+
+  <footer class="footer">
+    <p>© 2026 SMPK Untung Suropati Sidoarjo &nbsp;·&nbsp; Website Laporan Sarpras</p>
+  </footer>
+
+  <script src="js/darkmode.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/compress.js"></script>
+  <script src="js/form.js"></script>
+
+</body>
+</html>

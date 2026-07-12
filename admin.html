@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="assets/logo-sekolah.png" onerror="this.style.display='none'">
+  <title>Login Admin — Sarpras SMPK Untung Suropati</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="login-page">
+    <div class="login-card">
+
+      <div class="login-card__header">
+        <div class="login-logos">
+          <img src="assets/logo-sekolah.png" alt="Logo Sekolah" onerror="this.style.display='none'">
+        </div>
+        <h2>Dashboard Admin Sarpras</h2>
+        <p>SMPK Untung Suropati Sidoarjo</p>
+      </div>
+
+      <div class="login-card__body">
+        <div class="login-badge">🔒 Area Khusus Petugas Sarpras</div>
+
+        <div id="alertBox" class="alert"></div>
+
+        <form id="formLogin" novalidate>
+          <div class="form-group">
+            <label class="form-label" for="username">Username</label>
+            <input class="form-input" type="text" id="username" placeholder="Masukkan username" autocomplete="username" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="password">Password</label>
+            <div style="position:relative;">
+              <input class="form-input" type="password" id="password" placeholder="Masukkan password"
+                     autocomplete="current-password" style="padding-right:44px;" required>
+              <button type="button" id="togglePassword"
+                      style="position:absolute;right:12px;top:50%;transform:translateY(-50%);
+                             background:none;border:none;cursor:pointer;color:var(--gray-400);
+                             font-size:1rem;padding:0;line-height:1;">👁</button>
+            </div>
+          </div>
+
+          <button type="submit" class="btn--login" id="btnLogin">Masuk ke Dashboard</button>
+        </form>
+      </div>
+
+      <div class="login-card__footer">
+        <p>Lupa password? Hubungi developer website</p>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

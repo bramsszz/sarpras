@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="assets/logo-sekolah.png" onerror="this.style.display='none'">
+  <title>Dashboard Admin — Sarpras SMPK Untung Suropati</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="dash">
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar__inner">
+      <a href="index.html" class="navbar__brand">
+        <img src="assets/logo-sekolah.png" alt="Logo Sekolah" onerror="this.style.display='none'">
+        <div class="navbar__brand-text">
+          Dashboard Admin Sarpras
+          <span>SMPK Untung Suropati Sidoarjo</span>
+        </div>
+      </a>
+      <div class="navbar__admin-info">
+        <span class="navbar__admin-badge">👤 Admin Sarpras</span>
+        <button onclick="logout()" class="btn--logout">Keluar</button>
+        <button class="dark-toggle" id="darkToggleBtn" onclick="toggleDarkMode()" title="Ganti ke mode gelap">🌙</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="dashboard-layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <p class="sidebar__section-label">Menu</p>
+      <ul class="sidebar__menu">
+        <li class="sidebar__item"><a href="#" class="active" onclick="showTab('statistik', this); return false;"><span class="sidebar__icon">📊</span> Statistik</a></li>
+        <li class="sidebar__item"><a href="#" onclick="showTab('laporan', this); return false;"><span class="sidebar__icon">📋</span> Semua Laporan</a></li>
+      </ul>
+      <hr class="sidebar__divider">
+      <p class="sidebar__section-label">Lainnya</p>
+      <ul class="sidebar__menu">
+        <li class="sidebar__item"><a href="index.html" target="_blank"><span class="sidebar__icon">🌐</span> Lihat Website</a></li>
+      </ul>
+    </aside>
+
+    <!-- Main -->
+    <main class="dashboard-main">
+
+      <div id="globalLoading" class="loading"><div class="spinner"></div> Memuat data...</div>
+
+      <!-- TAB: Statistik -->
+      <div id="tab-statistik" class="tab-panel active">
+        <p class="page-title">📊 Statistik Laporan Sarpras</p>
+        <p class="page-subtitle" id="lastUpdated">Memuat data...</p>
+
+        <div class="stats-grid">
+          <div class="stat-card stat-card--total">
+            <span class="stat-card__icon">📝</span>
+            <div class="stat-card__number" id="statTotal">—</div>
+            <div class="stat-card__label">Total Laporan</div>
+          </div>
+          <div class="stat-card stat-card--menunggu">
+            <span class="stat-card__icon">⏳</span>
+            <div class="stat-card__number" id="statMenunggu">—</div>
+            <div class="stat-card__label">Menunggu</div>
+          </div>
+          <div class="stat-card stat-card--diproses">
+            <span class="stat-card__icon">🔧</span>
+            <div class="stat-card__number" id="statDiproses">—</div>
+            <div class="stat-card__label">Diproses</div>
+          </div>
+          <div class="stat-card stat-card--selesai">
+            <span class="stat-card__icon">✅</span>
+            <div class="stat-card__number" id="statSelesai">—</div>
+            <div class="stat-card__label">Selesai</div>
+          </div>
+        </div>
+
+        <div class="hchart-section">
+          <div class="hchart-card">
+            <div class="hchart-card__title">Laporan per Tingkat Kerusakan</div>
+            <div class="hbar-list" id="hbarTingkat"></div>
+          </div>
+          <div class="hchart-card">
+            <div class="hchart-card__title">Laporan per Status</div>
+            <div class="hbar-list" id="hbarStatus"></div>
+          </div>
+        </div>
+
+        <div class="hchart-card">
+          <div class="hchart-card__title">Laporan per Jenis Fasilitas</div>
+          <div class="hbar-list" id="hbarKategori"></div>
+        </div>
+      </div>
+
+      <!-- TAB: Semua Laporan -->
+      <div id="tab-laporan" class="tab-panel">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:20px;">
+          <div>
+            <p class="page-title">📋 Semua Laporan</p>
+            <p class="page-subtitle">Kelola dan pantau laporan sarpras</p>
+          </div>
+          <button onclick="loadData()" class="btn btn--outline" style="font-size:0.85rem;padding:7px 16px;">🔄 Refresh</button>
+        </div>
+
+        <div class="filter-bar">
+          <input id="dashSearch" type="text" placeholder="🔍 Cari nama, lokasi, kode, kritik…" oninput="applyFilters()">
+          <select id="dashFilterKategori" onchange="applyFilters()"><option value="">Semua Jenis</option></select>
+          <select id="dashFilterKelas" onchange="applyFilters()"><option value="">Semua Kelas</option></select>
+          <select id="dashFilterTingkat" onchange="applyFilters()"><option value="">Semua Tingkat</option></select>
+          <select id="dashFilterStatus" onchange="applyFilters()"><option value="">Semua Status</option></select>
+          <select id="dashSort" onchange="applyFilters()">
+            <option value="newest">Urut: Terbaru</option>
+            <option value="oldest">Urut: Terlama</option>
+            <option value="tingkat">Urut: Tingkat (Berat dulu)</option>
+          </select>
+        </div>
+
+        <div class="filter-bar filter-bar--dates">
+          <label class="filter-date">Dari <input id="dashDateFrom" type="date" onchange="applyFilters()"></label>
+          <label class="filter-date">Sampai <input id="dashDateTo" type="date" onchange="applyFilters()"></label>
+          <button class="btn btn--outline" onclick="resetFilters()" style="font-size:0.82rem;padding:7px 14px;">Reset Filter</button>
+        </div>
+
+        <p id="dashCounter" style="font-size:0.85rem;color:var(--gray-400);margin-bottom:12px;"></p>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Foto</th>
+                <th>Pelapor</th>
+                <th>Lokasi</th>
+                <th class="hide-lg">Jenis</th>
+                <th>Tingkat</th>
+                <th class="hide-md">Kritik</th>
+                <th class="hide-md">Saran</th>
+                <th>Status</th>
+                <th class="hide-md">Tanggal</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+        </div>
+
+        <div class="mobile-cards" id="mobileCards"></div>
+
+        <div id="dashPagination" class="pagination"></div>
+
+        <div id="tableEmpty" class="empty-state" style="display:none;">
+          <div class="empty-state__icon">📭</div>
+          <p>Belum ada laporan.</p>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <footer class="footer"><p>© 2026 SMPK Untung Suropati Sidoarjo &nbsp;·&nbsp; Dashboard Admin Sarpras</p></footer>
+
+  <!-- Modal konfirmasi -->
+  <div class="modal-overlay" id="modalOverlay" style="display:none;">
+    <div class="modal-box">
+      <span class="modal-box__icon" id="modalIcon">❓</span>
+      <div class="modal-box__title" id="modalTitle">Konfirmasi</div>
+      <div class="modal-box__desc" id="modalDesc"></div>
+      <div class="modal-box__actions">
+        <button class="modal-btn modal-btn--cancel" id="modalCancel">Batal</button>
+        <button class="modal-btn modal-btn--confirm" id="modalConfirm">Ya, Lanjutkan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal preview foto -->
+  <div class="modal-overlay" id="fotoModalOverlay" style="display:none;" onclick="if(event.target===this) this.style.display='none';">
+    <div class="modal-box" style="max-width:600px;">
+      <img id="fotoModalImg" class="modal-box__img" src="" alt="Foto laporan">
+      <button class="modal-btn modal-btn--cancel" style="width:100%;" onclick="document.getElementById('fotoModalOverlay').style.display='none';">Tutup</button>
+    </div>
+  </div>
+
+  <script src="js/darkmode.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
